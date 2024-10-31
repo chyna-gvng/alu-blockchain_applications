@@ -150,6 +150,6 @@ contract SimpleStorage {
 
 ## Conclusion
 
-This guide covers the process of setting up the environment, writing, compiling, deploying, and interacting with the **SimpleStorage** smart contract. All steps are documented with screenshots and a GIF of the interaction. By following this structured approach, you can ensure a smooth and successful completion of your assignment.
+This guide covers the process of setting up the environment, writing, compiling, deploying, and interacting with the **SimpleStorage** smart contract. All steps are documented with screenshots and a GIF of the interaction.
 
 Happy coding! 🚀
