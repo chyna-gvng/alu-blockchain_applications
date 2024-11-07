@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (window.ethereum) {
             web3 = new Web3(window.ethereum);
             try {
-                await window.ethereum.enable();
-                const accounts = await web3.eth.getAccounts();
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 account = accounts[0];
                 accountSpan.textContent = account;
                 walletInfo.style.display = 'block';
@@ -24,10 +23,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 await loadContract();
                 await updateBalance();
             } catch (error) {
-                console.error("User denied account access");
+                if (error.code === 4001) {
+                    console.error("User denied account access");
+                    alert("Please connect your wallet to use this DApp.");
+                } else {
+                    console.error("Error connecting to wallet:", error);
+                }
             }
         } else {
             console.error("Ethereum browser extension not detected");
+            alert("Please install MetaMask to use this DApp.");
         }
     });
 
@@ -40,10 +45,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Transfer successful!');
         } catch (error) {
             console.error("Error transferring tokens:", error);
+            alert("Transfer failed. Please try again.");
         }
     });
 
     async function loadContract() {
+        const MyToken = await fetch('MyToken.json').then(response => response.json());
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = MyToken.networks[networkId];
         contract = new web3.eth.Contract(MyToken.abi, deployedNetwork && deployedNetwork.address);
