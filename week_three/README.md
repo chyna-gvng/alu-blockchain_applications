@@ -1,51 +1,126 @@
-# Token Transfer DApp
+# Token Transfer DApp on Ethereum using Alchemy
 
-This is a decentralized application (DApp) that allows users to transfer tokens between accounts on the Ethereum blockchain. The DApp is built using Solidity for the smart contract, and HTML, CSS, and JavaScript for the frontend.
+This directory contains a decentralized application (DApp) that allows users to transfer tokens between accounts on the Ethereum blockchain using Alchemy as the provider. The DApp consists of a smart contract written in Solidity, a simple web interface using HTML, CSS, and JavaScript, and is deployed on the Sepolia test network.
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+- [Deployment Instructions](#deployment-instructions)
+- [Testing Instructions](#testing-instructions)
+- [How It Works](#how-it-works)
+- [GitHub Repository](#github-repository)
+- [Screenshots](#screenshots)
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Node.js and npm
+- Truffle: `npm install -g truffle`
+- Ganache CLI: `npm install -g ganache-cli`
 
 ## Setup Instructions
 
-1. **Install Node.js and npm**:
-   - Ensure you have Node.js and npm installed. You can check this by running:
-     ```bash
-     node -v
-     npm -v
-     ```
-   - If not installed, download and install from [nodejs.org](https://nodejs.org/).
+1. **Clone the Repository**:
 
-2. **Install Truffle**:
-   - Install Truffle globally using npm:
-     ```bash
-     npm install -g truffle
-     ```
+   ```bash
+   git clone https://github.com/chyna-gvng/alu-blockchain_applications.git
+   cd alu-blockchain_applications/week_three
+   ```
 
-3. **Install Dependencies**:
-   - Navigate to your project directory and initialize a new npm project:
-     ```bash
-     npm init -y
-     ```
-   - Install necessary dependencies:
-     ```bash
-     npm install @truffle/hdwallet-provider dotenv web3
-     ```
+2. **Install Dependencies**:
 
-4. **Set Up Environment Variables**:
-   - Create a `.env` file in the root directory and add your Alchemy API key and mnemonic phrase:
-     ```plaintext
-     ALCHEMY_API_KEY=your_alchemy_api_key_here
-     MNEMONIC=your mnemonic phrase here
-     ```
+   ```bash
+   npm install
+   ```
 
-5. **Deploy the Contract**:
-   - Deploy the contract to the Sepolia testnet:
-     ```bash
-     truffle migrate --network sepolia
-     ```
+3. **Set Up Environment Variables**:
 
-6. **Run the DApp**:
-   - Open the `index.html` file in your browser.
+   Copy the example environment file and update it with your Alchemy API Key and mnemonic phrase.
 
-## Testing the DApp
+   ```bash
+   cp .env-example .env
+   ```
 
-- Run the tests:
-  ```bash
-  truffle test
+   Edit the `.env` file and add your Alchemy API Key and mnemonic phrase.
+
+   ```env
+   ALCHEMY_API_KEY="your_alchemy_api_key"
+   MNEMONIC="your mnemonic phrase here"
+   ```
+
+## Deployment Instructions
+
+1. **Deploy the Smart Contract**:
+
+   Deploy the smart contract to the Sepolia test network using Truffle.
+
+   ```bash
+   truffle migrate --network sepolia
+   ```
+
+2. **Modify Contract Address**:
+
+   After deployment, update the contract address in the `src/MyToken.json` file with the address of the deployed contract.
+
+   ```json
+   {
+     "address": "YOUR_DEPLOYED_CONTRACT_ADDRESS"
+   }
+   ```
+
+## Testing Instructions
+
+1. **Start Ganache**:
+
+   Start Ganache CLI to run a local blockchain for development testing.
+
+   ```bash
+   ganache-cli
+   ```
+
+2. **Run Tests**:
+
+   Run the test suite using Truffle.
+
+   ```bash
+   truffle test
+   ```
+
+## How It Works
+
+### Smart Contract
+
+The smart contract `MyToken` is an ERC20 token contract that allows users to transfer tokens between accounts. The contract is deployed with an initial supply of tokens, which are minted to the deployer's address.
+
+### Frontend
+
+The frontend is a simple web interface that allows users to:
+
+- View their token balance.
+- Enter a recipient address and an amount to transfer tokens.
+- Initiate the transfer transaction.
+
+### Deployment
+
+The smart contract is deployed to the Sepolia test network using Truffle and Alchemy as the provider. The frontend interacts with the deployed contract to perform token transfers.
+
+## GitHub Repository
+
+[GitHub Repository](https://github.com/chyna-gvng/alu-blockchain_applications/tree/main/week_three)
+
+## Screenshots
+
+### Deployment
+
+![Deployment CLI Output](img/deployment.png)
+
+### Etherscan
+
+![Etherscan](img/etherscan.png)
+
+### Frontend
+
+![Frontend Connect](img/frontend-connect.png)
+![Frontend Balance](img/frontend-balance.png)
